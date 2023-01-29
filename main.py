@@ -66,9 +66,9 @@ class App(CTk.CTk):
 
         self.password_length_slider.set(32)
         self.password_length_entry.insert(0, "32")
-        # self.cb_digits.select(1)
-        # self.cb_upper.select(1)
-        # self.cb_lower.select(1)
+        self.cb_digits.select(1)
+        self.cb_upper.select(1)
+        self.cb_lower.select(1)
 
     def slider_event(self, value):
         self.password_length_entry.delete(0, "end")
