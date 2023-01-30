@@ -66,9 +66,9 @@ class App(CTk.CTk):
 
         self.password_length_slider.set(32)
         self.password_length_entry.insert(0, "32")
-        self.cb_digits.select(1)
-        self.cb_upper.select(1)
-        self.cb_lower.select(1)
+        # self.cb_digits.select(1)
+        # self.cb_upper.select(1)
+        # self.cb_lower.select(1)
 
     def slider_event(self, value):
         self.password_length_entry.delete(0, "end")
@@ -81,11 +81,12 @@ class App(CTk.CTk):
 
     def set_password(self):
         self.entry_password.delete(0, "end")
-        self.entry_password.insert(0, password.create_new(length=int(self.password_length_slider.get()),
-                                                          characters=self.get_characters()))
+        password_for_copy = password.create_new(length=int(self.password_length_slider.get()),
+                                                characters=self.get_characters())
+        self.entry_password.insert(0, password_for_copy)
+        self.entry_password.clipboard_append(password_for_copy)
 
 
 if __name__ == '__main__':
     app = App()
-    app.update()
     app.mainloop()
