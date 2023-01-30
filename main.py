@@ -17,37 +17,33 @@ class App(CTk.CTk):
 
         self.logo = CTk.CTkImage(dark_image=Image.open("img.png"), size=(460, 150))
         self.logo_label = CTk.CTkLabel(master=self, text="", image=self.logo)
-        self.logo_label.grid(row=0, column=0)
+        self.logo_label.grid(row=0, column=0, padx=(0, 20))
 
         self.password_frame = CTk.CTkFrame(master=self, fg_color="transparent")
         self.password_frame.grid(row=1, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
 
         self.entry_password = CTk.CTkEntry(master=self.password_frame, width=280)
-        self.entry_password.grid(row=0, column=0, padx=(0, 10))
+        self.entry_password.grid(row=1, column=0, padx=(0, 20))
 
-        self.btn_generate = CTk.CTkButton(master=self.password_frame, text="Generate", width=70,
+        self.btn_generate = CTk.CTkButton(master=self.password_frame, text="Generate and copy", width=120,
                                           command=self.set_password)
-        self.btn_generate.grid(row=0, column=1, padx=(0, 10))
+        self.btn_generate.grid(row=1, column=1, padx=(0, 20))
 
-        self.btn_copy = CTk.CTkButton(master=self.password_frame, text="Copy", width=50,
-                                      command=lambda: self.entry_password.event_generate("<<Copy>>"))
-        self.btn_copy.grid(row=0, column=2)
-
-        self.settings_frame = CTk.CTkFrame(master=self)
-        self.settings_frame.grid(row=2, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
+        self.settings_frame = CTk.CTkFrame(master=self,  width=120)
+        self.settings_frame.grid(row=2, column=0, padx=(20, 0), pady=(20, 20), sticky="w")
 
         self.password_length_slider = CTk.CTkSlider(master=self.settings_frame, from_=0, to=100, number_of_steps=100,
                                                     command=self.slider_event)
         self.password_length_slider.grid(row=1, column=0, columnspan=3, pady=(20, 20), sticky="ew")
 
-        self.password_length_entry = CTk.CTkEntry(master=self.settings_frame, width=50)
-        self.password_length_entry.grid(row=1, column=3, padx=(20, 10), sticky="we")
+        self.password_length_entry = CTk.CTkEntry(master=self.settings_frame, width=80)
+        self.password_length_entry.grid(row=1, column=3, padx=(20, 10), sticky="ew")
 
         self.cb_digits_var = tk.StringVar()
 
         self.cb_digits = CTk.CTkCheckBox(master=self.settings_frame, text="0-9",
                                          variable=self.cb_digits_var, onvalue=digits, offvalue="")
-        self.cb_digits.grid(row=2, column=0, padx=10)
+        self.cb_digits.grid(row=2, column=0, padx=5)
 
         self.cb_lower_var = tk.StringVar()
         self.cb_lower = CTk.CTkCheckBox(master=self.settings_frame, text="a-z", variable=self.cb_lower_var,
@@ -84,6 +80,7 @@ class App(CTk.CTk):
         password_for_copy = password.create_new(length=int(self.password_length_slider.get()),
                                                 characters=self.get_characters())
         self.entry_password.insert(0, password_for_copy)
+        self.entry_password.clipboard_clear()
         self.entry_password.clipboard_append(password_for_copy)
 
 
